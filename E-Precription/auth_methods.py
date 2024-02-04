@@ -16,7 +16,7 @@ auth=firebase.auth()
 def login(email,password):
     result = ''
     try:
-        auth.sign_in_with_email_and_password(email,password)
+        login = auth.sign_in_with_email_and_password(email,password)
         result = 'success'
     except :
         result = 'unsuccess'
