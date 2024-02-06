@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E Prescription</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        .navbar a {
+            position: relative;
+            font-size: 16px;
+            color: aliceblue;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 30px;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 2px;
+            background: white;
+            border-radius: 5px;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: .5s;
+        }
+
+        .navbar a:hover::after {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Styling for the neon button */
+        .neon-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #0c0b0b;
+            border: 2px solid #0d0d0e;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #00f7ff, #571ff1);
+            box-shadow: 0 0 10px rgba(0, 8, 8, 0.8);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* Hover effect for the neon button */
+        .neon-button:hover {
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.8);
+        }
+    </style>
+
+
+
+</head>
+
+<body style=" justify-content: center;
+align-items: center;
+min-height: 100vh;
+position: relative;">
+    <header class="header first-pg" style="background-color: rgb(6, 5, 75);     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    /* background: transparent; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;">
+        <a href="#" class="logo" style="font-size: 16px;
+        color: rgb(238, 229, 229);
+        text-decoration: none;">
+            <h3>E-Prescription</h3>
+        </a>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="a" style=" background-image: url('/static/img/tablet2.jpg') ">
+
+        <div class="transbox" style=" 
+         position: relative; top: 90px; bottom: 100px;  
+          margin: 30px; 
+  background-color: grey;
+  border: 1px solid rgb(0, 0, 10);
+  opacity: 0.7;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  padding: 0px;
+  font-style: oblique;
+  font-size: larger;
+  margin-top: 10px;
+  margin-bottom: 110px;">
+            <div id="ph" style=" display: flex;
+            /* justify-content: space-between; */
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background:transparent;  
+            color: rgb(8, 5, 5); 
+            ">
+                <div style="padding-bottom: 20px; padding-left: 20px;">
+                    <!-- Change the image source for different images -->
+                    <img id="logo" src="static/img/mobile_prescription.jpg" alt="Logo 1" style=" width: 1100px; /* Adjust the width of your logo */
+                    height: 250px; padding-top: 50px; padding-bottom: 5px; padding-right: 700px;
+                    object-fit: contain;">
+                    <!-- You can add more images and change them dynamically using JavaScript -->
+                </div>
+                <div id="prescriptionName"
+                    style=" width: 220px; font-family: cursive; font-size: 30px; position: relative; right: 350px; padding-right: 40px; padding-bottom: 40px;">
+                    E-Prescription System
+                </div>
+            </div><br>
+
+        </div>
+        <br>
+    </div>
+    <div class="forms" style="padding: 40px; background-color: rgb(245, 239, 241); ">
+        <center>
+            <h3 style="font-size: 2.0rem; font-family: cursive;">Are You A Digital Prescriber?</h3>
+        </center><br><br>
+        <!-- <div style="display: flexbox;"><center><div><button type="button">login</button></div><div><button type="button">register</button></div></center></div> -->
+        <span style="padding-left:500px ;"><a href="/register" class="neon-button">Register</a></span>
+        <span style="padding-left: 50px;"><a href="/login" class="neon-button">Login</a></span>
+    </div>
+
+
+</body>
+
+</html>

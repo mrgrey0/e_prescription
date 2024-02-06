@@ -7,13 +7,17 @@ app = Flask(__name__)
 def register():
     return render_template('register.html')
 
+@app.route('/login')
+def loginPg():
+    return render_template('index.html')
+
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("welcome.html")
 
 @app.route('/homepage')
 def homepage():
-    return "WELCOME TO HOME PAGE"
+    return render_template("welcome.html")
 
 @app.route('/regusr',methods =['GET','POST'])
 def regusr():
