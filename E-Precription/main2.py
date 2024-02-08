@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template,request, url_for
 import auth_methods
-
+#this is comment
 app = Flask(__name__)
 
 @app.route('/register')
