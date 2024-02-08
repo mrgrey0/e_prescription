@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Prescription System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* .header {
+      background-color: #48c5f7;
+      color: #080000;
+      text-align: center;
+      padding: 20px 0;
+    } */
+    section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
+    /* .highlight {
+      color: #ffcc00;
+    } */
+
+    .container {
+      background-image: url(img4);
+      /* background-color: rgb(250, 246, 248); */
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .feature {
+      /* background-color: #f0d22b; */
+      padding: 20px;
+      border-radius: 10px;
+      /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+      margin: 20px;
+      width: calc(33.33% - 40px);
+      max-width: 300px;
+      /* transition: transform 0.3s ease; */
+      background: linear-gradient(135deg, #ecece6, #f5e838);
+            box-shadow: 0 0 10px rgba(0, 8, 8, 0.8);
+            transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .feature:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature h2 {
+      color: #0a0a09;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      line-height: 1.6;
+    }
+
+    .why-choose-us {
+      text-align: center;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: #050666;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .why-choose-us h2 {
+      color: #f0c818;
+      margin-bottom: 20px;
+    }
+
+    .why-choose-us ul {
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      text-align: left;
+      justify-items: center;
+    }
+
+    .why-choose-us li {
+      list-style: none;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .why-choose-us li h3 {
+      color: #19034d;
+      margin-bottom: 10px;
+    }
+
+    .why-choose-us li p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .testimonial-container {
+      max-width: 100%;
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .testimonial {
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 10px;
+      width: calc(50% - 20px);
+      max-width: 400px;
+    }
+
+    .testimonial p {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-author {
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    /* .faq-container {
+      text-align: center;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: #f0f0f0;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-container h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .faq-container .faq { */
+      /* margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .faq-container .faq h3 {
+      color: #007bff;
+      margin-bottom: 10px;
+    } */
+
+    /* .faq-container .faq p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .faq-container .faq-item {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+
+    .faq-container .faq-item:first-child {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
+    } */
+
+    /* .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 15px 40px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      font-size: 20px;
+    } */
+/* 
+    .cta a:hover {
+      background-color: #0056b3;
+    } */
+  </style>
+</head>
+<body>
+  <!-- <header class="header">
+    <h1>Welcome to E-Prescription System</h1>
+  </header> -->
+    <!-- margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;"> -->
+    <section style=" background-image: url(ne.jpg),url(ne.jpg); background-repeat: no-repeat; background-position: right,left;">
+    <div class="container-1" style="max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;">
+        <h2>Welcome to E-Prescription </h2>
+        <p>A comprehensive platform for electronic prescription management</p>
+        <a href="index.html" style=" 
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;">Get Started</a>
+    </div>
+</section>
+
+<!-- <h1 style="text-align: center; color: rgb(14, 12, 12);">Key Features</h1> -->
+  <div class="container">
+    <div class="feature">
+      <h2>Empowering Healthcare Providers</h2>
+      <p>Say goodbye to outdated paper prescriptions. Our e-prescription system enables healthcare providers to create digital prescriptions with ease, reducing errors and improving efficiency.</p>
+    </div>
+
+    <div class="feature">
+      <h2>Enhance Patient Care</h2>
+      <p>By leveraging advanced decision support tools, healthcare providers can make informed prescribing decisions, leading to better patient outcomes and enhanced safety.</p>
+    </div>
+
+    <div class="feature">
+      <h2>Empowering Patients</h2>
+      <p>Patients can now receive their prescriptions directly on their mobile phones via text message. Our platform ensures patients have convenient access to their medication information wherever they are.</p>
+    </div>
+
+    <div class="feature">
+      <h2>Clear Instructions</h2>
+      <p>Patients receive clear, easy-to-understand instructions along with their digital prescriptions, promoting medication adherence and reducing confusion.</p>
+    </div>
+
+    <div class="feature">
+      <h2>Electronic Record Keeping</h2>
+      <p>Our system maintains detailed electronic records of prescriptions, making it easier for healthcare providers to track patient history and monitor medication usage.</p>
+    </div>
+
+    <div class="feature">
+      <h2>Secure Communication</h2>
+      <p>We prioritize patient privacy and security by using encrypted communication channels to transmit prescriptions and sensitive medical information.</p>
+    </div>
+  </div>
+
+  <div class="why-choose-us">
+    <h2>Why Choose Us</h2>
+    <ul>
+      <li>
+        <h3>Advanced Technology</h3>
+        <p>Our system utilizes cutting-edge technology to provide efficient and reliable e-prescription services.</p>
+      </li>
+      <li>
+        <h3>Customized Solutions</h3>
+        <p>We understand the unique needs of healthcare providers and offer tailored solutions to optimize their workflow.</p>
+      </li>
+      <li>
+        <h3>Exceptional Support</h3>
+        <p>Our dedicated support team is available to assist you every step of the way, ensuring a seamless experience.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="testimonial-container">
+    <div class="testimonial">
+      <p>"The e-prescription system has made a significant difference in our workflow. It's efficient, reliable, and has streamlined our prescription process."</p>
+      <p class="testimonial-author">- Dr. Amanda Johnson</p>
+    </div>
+
+    <div class="testimonial">
+      <p>"As a patient, I appreciate the convenience of receiving my prescriptions digitally. It ensures the accuracy."</p>
+      <p class="testimonial-author">- Sarah Smith</p>
+    </div>
+
+    <!-- <div class="testimonial">
+      <p>"The e-prescription platform has exceeded our expectations. It's user-friendly, and the support team is always responsive and helpful."</p>
+      <p class="testimonial-author">- John Doe</p>
+    </div> -->
+  </div>
+
+  <!-- <div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3>What is an e-prescription?</h3>
+        <p>An e-prescription, or electronic prescription, is a digital version of a traditional paper prescription that is generated and transmitted electronically by healthcare providers to pharmacies.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How does the e-prescription system work?</h3>
+        <p>The e-prescription system allows healthcare providers to create digital prescriptions using specialized software. These prescriptions are then securely transmitted to pharmacies, where they can be processed and filled.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is e-prescription secure?</h3>
+        <p>Yes, e-prescription systems employ various security measures, such as encryption and authentication protocols, to ensure the confidentiality and integrity of patient information.</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="cta">
+    <a href="#">Schedule a Demo</a>
+  </div> -->
+</body>
+</html>
