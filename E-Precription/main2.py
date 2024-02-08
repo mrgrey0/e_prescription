@@ -8,6 +8,7 @@ def register():
     return render_template('register.html')
 
 @app.route('/login')
+def loginPg():
     return render_template('index.html')
 
 @app.route('/')
