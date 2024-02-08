@@ -31,7 +31,6 @@ def regusr():
             return "SOMETHING WENT WRONG"
 
 @app.route('/loginChck',methods=['POST','GET'])
-# pending user creating logi
 def checklogin():
     if request.method=='POST':
         username = request.form['username']
