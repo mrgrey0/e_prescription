@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template,request, url_for
 import auth_methods
-#this is comment
+
 app = Flask(__name__)
 
 @app.route('/register')
@@ -9,15 +9,19 @@ def register():
 
 @app.route('/login')
 def loginPg():
-    return render_template('index.html')
+    return render_template('login.html')
 
 @app.route('/')
 def index():
     return render_template("welcome.html")
 
-@app.route('/homepage')
+@app.route('/home')
 def homepage():
-    return render_template("welcome.html")
+    return render_template("home22.html")
+
+@app.route('/contact')
+def contact():
+    return render_template("c3.html")
 
 @app.route('/regusr',methods =['GET','POST'])
 def regusr():

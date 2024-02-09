@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,6 +61,11 @@
             box-shadow: 0 0 10px rgba(0, 8, 8, 0.8);
             transition: box-shadow 0.3s ease-in-out;
         }
+        .logo2{
+            width: 900px; /* Adjust the width of your logo */
+                    height: 250px; padding-top: 50px; padding-bottom: 5px; padding-right: 700px;
+                    object-fit: contain; width: 1100px; border: 5px red;
+        }
 
         /* Hover effect for the neon button */
         .neon-button:hover {
@@ -90,21 +97,21 @@ position: relative;">
             <h3>E-Prescription</h3>
         </a>
         <nav class="navbar">
-            <a href="home.html">Home</a>
+            <a href="/home">Home</a>
             <a href="#">About</a>
             <a href="#">Services</a>
-            <a href="#">Contact</a>
+            <a href="/contact">Contact</a>
         </nav>
     </header>
 
-    <div class="a" style=" background-image: url('/static/img/tablet2.jpg') ">
+    <div class="a" style=" background-image: url(static/img/tablet2.jpg); ">
 
         <div class="transbox" style=" 
-         position: relative; top: 90px; bottom: 100px;  
-          margin: 30px; 
-  background-color: grey;
-  border: 1px solid rgb(0, 0, 10);
-  opacity: 0.7;
+        position: relative; top: 90px; bottom: 100px;  
+        margin: 30px; 
+        background-color: rgb(14, 13, 13);
+        border: 1px solid rgb(0, 0, 10);
+        opacity: 0.7;
   font-weight: bold;
   color: white;
   text-align: center;
@@ -114,24 +121,23 @@ position: relative;">
   margin-top: 10px;
   margin-bottom: 110px;">
             <div id="ph" style=" display: flex;
-            /* justify-content: space-between; */
+            justify-content: space-between;
             align-items: center;
             padding-top: 10px;
             padding-bottom: 10px;
             background:transparent;  
-            color: rgb(8, 5, 5); 
-            ">
-                <div style="padding-bottom: 20px; padding-left: 20px;">
+            color: rgb(248, 243, 243);
+            "> 
+                <div>
                     <!-- Change the image source for different images -->
-                    <img id="logo" src="static/img/mobile_prescription.jpg" alt="Logo 1" style=" width: 1100px; /* Adjust the width of your logo */
-                    height: 250px; padding-top: 50px; padding-bottom: 5px; padding-right: 700px;
-                    object-fit: contain;">
+                    <img class="logo2" src= {{ url_for('static', filename='/img/mobile_prescription.jpg') }} alt="Logo 1" >
+                    <img class="logo2" src= {{ url_for('static', filename='/img/image2.jpg') }} alt="Logo 1" >
+                    <img class="logo2" src= {{ url_for('static', filename='/img/image3.jpg') }} alt="Logo 1" >
                     <!-- You can add more images and change them dynamically using JavaScript -->
                 </div>
-                <div id="prescriptionName"
-                    style=" width: 220px; font-family: cursive; font-size: 30px; position: relative; right: 350px; padding-right: 40px; padding-bottom: 40px;">
-                    E-Prescription System
-                </div>
+                <!-- <div class="nm" style="width: 80%; margin: 0;">e Prescription system</div> -->
+                <div class="prescriptionName" style="display: block; font-family: cursive; font-size: 30px; position: relative; right: 350px; padding-bottom: 40px;">
+                E-Prescription System</div>
             </div><br>
 
         </div>
@@ -145,7 +151,24 @@ position: relative;">
         <span style="padding-left:500px ;"><a href="/register" class="neon-button">Register</a></span>
         <span style="padding-left: 50px;"><a href="/login" class="neon-button">Login</a></span>
     </div>
+    <script>
+        var slideIndex = 0;
+        carousel();
 
+        function carousel() {
+            var i;
+            var slides = document.getElementsByClassName("logo2");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(carousel, 2000); // Change image every 2 seconds
+        }
+    </script>
 
 </body>
 

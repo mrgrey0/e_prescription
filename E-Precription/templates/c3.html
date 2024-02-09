@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - E-Prescription</title>
+<style>
+    body {
+        background-image: url(static/img/image2.jpg);
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+    .neon-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #0c0b0b;
+            border: 2px solid #0d0d0e;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #00f7ff, #571ff1);
+            box-shadow: 0 0 10px rgba(0, 8, 8, 0.8);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* Hover effect for the neon button */
+        .neon-button:hover {
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.8);
+        }
+    
+
+    .container {
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #fcf824;
+    }
+
+    .neon-box {
+        background-color: #fbfafd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff, 0 0 80px #0ff, 0 0 100px #0ff;
+        animation: neon-glow 1s infinite alternate;
+    }
+
+    @keyframes neon-glow {
+        from {
+            box-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff, 0 0 80px #0ff, 0 0 100px #0ff;
+        }
+        to {
+            box-shadow: 0 0 30px #0ff, 0 0 50px #0ff, 0 0 70px #0ff, 0 0 90px #0ff, 0 0 110px #0ff;
+        }
+    }
+
+    .neon-text {
+        color: #0a0404;
+        text-align: center;
+    }
+
+    .contact-form-container {
+        max-width: 700px; /* Set maximum width for the contact form */
+        margin: 0 auto;
+        padding-top: 20px; /* Center the contact form horizontally */
+    }
+
+    .contact-form {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .contact-form label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        text-align: left;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+        width: calc(100% - 30px); /* Adjust width */
+        padding: 8px; /* Adjust padding */
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px; /* Adjust font size */
+        background-color: #fff;
+        color: #333;
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    .contact-form input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .contact-form input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>We'd love to hear from you!</h1>
+
+        <div class="neon-box">
+            <div class="neon-text">
+                <h2>Get in Touch</h2>
+                <p>If you have any questions or concerns, feel free to contact us.</p>
+                <p>Email: <a href="mailto:eprescription@gmail.com">eprescription@gmail.com</a></p>
+                <p>Phone: <a href="tel:+918265029682">+91 8265029682</a></p>
+                <p>Address: Sanskruti Colony, Kopargaon, 423601</p>
+            </div>
+        </div>
+
+        <div class="contact-form-container">
+            <div class="contact-form">
+                <center><h2>Send us a Message</h2></center>
+                <form action="#" method="post">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required><br>
+
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required><br>
+
+                    <label for="message" >Message</label>
+                    <textarea id="message" name="message" required></textarea><br>
+
+                    <input type="submit" value="Send Message">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
