@@ -1,1 +1,2 @@
-hh
+1 add checkbox of 'I am a doctor' in register.html
+2 page after login (reception account)
