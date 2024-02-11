@@ -5,5 +5,10 @@ mydb = mysql.connector.connect(
   user="not0p",
   password="@Rose1"
 )
+def addUser():
+    pass
+
+def getUser():
+    pass 
 # WORK IS PENDINGGGGGGGGGG#sdasdasddasdasd
 print(mydb)

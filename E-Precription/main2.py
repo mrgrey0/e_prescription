@@ -28,6 +28,8 @@ def regusr():
     if request.method =='POST':
         username=request.form['email']
         password=request.form['password']
+        phNumber=request.Form['phNumber']
+        
         res = auth_methods.signUp(username,password)
         if res =='success':
             return redirect(url_for('homepage'))
