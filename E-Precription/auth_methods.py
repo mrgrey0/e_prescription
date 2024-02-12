@@ -1,5 +1,5 @@
 import pyrebase
-
+import sqlmethods
 firebaseConfig = {
   'apiKey': "AIzaSyDqoRHH1cbTWLUYRlH1vP5R-zrkCCAT0MI",
   'authDomain': "e-prescription-ff041.firebaseapp.com",
@@ -22,10 +22,11 @@ def login(email,password):
         result = 'unsuccess'
     return result
 
-def signUp(mail,passW):
+def signUp(mail,passW,uName,phNo,isDoc):
         result = ''
         try:
             login = auth.create_user_with_email_and_password(mail,passW)
+            res = sqlmethods.addUser(uName,mail,phNo,passW,isDoc)
             result ='success'
         except :
             result = 'unsuccess'

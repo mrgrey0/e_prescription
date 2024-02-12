@@ -6,21 +6,23 @@ mydb = mysql.connector.connect(
   password="x1uSP9bZTb",
   database='sql6682428'
 )
-def addUser():
-    pass
-
-def getUser():
-    pass 
-# WORK IS PENDINGGGGGGGGGG#sdasdasddasdasd
-# need to create a function that takes values and inserts it to sql database using a query.
-# then call it to register user route to store database of newly created user in sql database.
-print(mydb)
 cursorObject = mydb.cursor()
-if __name__ =='__main__':
-    ##cursorObject.execute("""CREATE TABLE USERS (
-#                   Username  VARCHAR(200) NOT NULL,
-#                   Email VARCHAR(50),
-#                   phNumber INT,
-#                   Password VARCHAR(200),
-#                   IsDoc BOOL
-#                   )""")
+def addUser(Username, Email,phNumber,Password,IsDoc):
+    result =00
+    data = (Username, Email,phNumber,Password,IsDoc)
+    insert_stmt = ("INSERT INTO USERS(Username, Email, phNumber, Password, IsDoc) VALUES (%s, %s, %s, %s, %s)")
+    try:
+        cursorObject.execute(insert_stmt,data)
+        mydb.commit()
+        result=1
+    except:
+        result=0
+    
+    return result
+
+def getUser(mail):
+    select_stmt = "SELECT Username FROM USERS WHERE Email = %(emp_no)s"
+    cursorObject.execute(select_stmt, { 'emp_no': mail })
+    result = cursorObject.fetchall()
+    return result
+# to be called when user logs in. to show information on the user's homepage

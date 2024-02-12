@@ -26,13 +26,15 @@ def contact():
 @app.route('/regusr',methods =['GET','POST'])
 def regusr():
     if request.method =='POST':
-        username=request.form['email']
+        username=request.form['username']
+        email=request.form['email']
         password=request.form['password']
-        phNumber=request.Form['phNumber']
-        
-        res = auth_methods.signUp(username,password)
+        phNumber=request.form['phNumber']
+        isDoc = 0
+        res = auth_methods.signUp(email,password,username,phNumber,isDoc)
         if res =='success':
             return redirect(url_for('homepage'))
+            
         elif res =='unsuccess':
             return "SOMETHING WENT WRONG"
 
