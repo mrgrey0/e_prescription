@@ -27,10 +27,32 @@ def getUser(mail):
     cursorObject.execute(select_stmt, { 'mail': mail })
     result = cursorObject.fetchall()
     return result
-if __name__ =='__main__':
-    r = getUser('test3@gmail.com')
 
-    print(r) # returns the row of the table. use this to iterate the isDoc
+def addPatientToDb(patientName, patientAge, patientGender, patientWeight, patientPhone):
+    result =00
+    data = (patientName, patientAge, patientGender, patientWeight, patientPhone)
+    insert_stmt = ("INSERT INTO PATIENTS(patientName, patientAge, patientGender, patientWeight, patientPhone) VALUES (%s, %s, %s, %s, %s)")
+    try:
+        cursorObject.execute(insert_stmt,data)
+        mydb.commit()
+        result=1
+    except:
+        result=0
+    
+    return result
+
+def getAllPatients():
+    query ="SELECT patientName, patientAge, patientGender, patientWeight, patientPhone FROM PATIENTS;"
+    cursorObject.execute(query)
+    patients = cursorObject.fetchall()
+    return patients
+
+
+#if __name__ =='__main__':
+#    r = getAllPatients()
+#    print(r)
+
+#    print(r) # returns the row of the table. use this to iterate the isDoc
     # to check isDoc use define a function to see the value of isDoc column of the selected row.
 
 
@@ -38,3 +60,4 @@ def findUser(mail):
     select_stmt = "SELECT Username FROM USERS WHERE Email = %(emp_no)s"
     cursorObject.execute(select_stmt)
 # to be called when user logs in. to show information on the user's homepage
+# to be continued after the whole work is completed

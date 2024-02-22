@@ -95,7 +95,37 @@
         .btn-submit:hover {
             background-color: #0056b3;
         }
+        #patient-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #patient-list li {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #patient-list li p {
+      margin: 0;
+      padding: 5px 0;
+      font-weight: bold;
+    }
     </style>
+    {% block content %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+    
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
 </head>
 <body>
     <div class="title-container">
@@ -106,7 +136,7 @@
     
     <div id="patientInfo" class="patient-info">
         <h3>Patient Information</h3>
-        <form id="patientForm">
+        <form id="patientForm" action="/addPatient" method="POST">
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
@@ -140,5 +170,17 @@
             document.getElementById('patientInfo').classList.add('active');
         });
     </script>
+
+<h1>Added Patients</h1>
+<ul id="patient-list">
+  {% for patient in patients %}
+    <li>
+      <p><b>Name:</b>{{ patient[0] }}</p>
+      <p><b>Age:</b> {{ patient[1] }}</p>
+      <p><b>Gender:</b> {{ patient[2] }}</p>
+      <p><b>Weight:</b> {{ patient[3] }} kg</p>
+      <p><b>Phone:</b> {{ patient[4] }}</p>
+  {% endfor %}
+</ul>
 </body>
 </html>
