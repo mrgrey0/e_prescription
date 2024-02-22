@@ -1,12 +1,14 @@
 import mysql.connector
 
 mydb = mysql.connector.connect(
-  host='sql6.freesqldatabase.com',
-  user="sql6682428",
-  password="x1uSP9bZTb",
-  database='sql6682428'
+  host='database-1.cj8208icggnk.eu-north-1.rds.amazonaws.com',
+  user="admin",
+  password="37Phw9prIcE6mRKEuwLM",
+  database ='PRDATA'
 )
 cursorObject = mydb.cursor()
+
+
 def addUser(Username, Email,phNumber,Password,IsDoc):
     result =00
     data = (Username, Email,phNumber,Password,IsDoc)
@@ -21,8 +23,18 @@ def addUser(Username, Email,phNumber,Password,IsDoc):
     return result
 
 def getUser(mail):
-    select_stmt = "SELECT Username FROM USERS WHERE Email = %(emp_no)s"
-    cursorObject.execute(select_stmt, { 'emp_no': mail })
+    select_stmt = "SELECT * FROM USERS WHERE Email = %(mail)s"
+    cursorObject.execute(select_stmt, { 'mail': mail })
     result = cursorObject.fetchall()
     return result
+if __name__ =='__main__':
+    r = getUser('test3@gmail.com')
+
+    print(r) # returns the row of the table. use this to iterate the isDoc
+    # to check isDoc use define a function to see the value of isDoc column of the selected row.
+
+
+def findUser(mail):
+    select_stmt = "SELECT Username FROM USERS WHERE Email = %(emp_no)s"
+    cursorObject.execute(select_stmt)
 # to be called when user logs in. to show information on the user's homepage

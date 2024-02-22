@@ -15,7 +15,11 @@ def loginPg():
 def index():
     return render_template("welcome.html")
 
-@app.route('/home')
+@app.route('/homerecep')
+def homepage():
+    return render_template("home22.html")
+
+@app.route('/homedoc')
 def homepage():
     return render_template("home22.html")
 
@@ -30,7 +34,8 @@ def regusr():
         email=request.form['email']
         password=request.form['password']
         phNumber=request.form['phNumber']
-        isDoc = 0
+        isDoc = request.form['check_box'] == 'doctor'
+
         res = auth_methods.signUp(email,password,username,phNumber,isDoc)
         if res =='success':
             return redirect(url_for('homepage'))

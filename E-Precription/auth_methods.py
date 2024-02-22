@@ -14,13 +14,17 @@ firebase=pyrebase.initialize_app(firebaseConfig)
 auth=firebase.auth()
 
 def login(email,password):
-    result = ''
-    try:
-        login = auth.sign_in_with_email_and_password(email,password)
-        result = 'success'
-    except :
-        result = 'unsuccess'
-    return result
+    res = sqlmethods.getUser(email)
+    if not res :
+         return 0 # tell the user dont exit
+    else : # log in the user
+        result = ''
+        try:
+            login = auth.sign_in_with_email_and_password(email,password)
+            result = 'success'
+        except :
+            result = 'unsuccess'
+        return result
 
 def signUp(mail,passW,uName,phNo,isDoc):
         result = ''
