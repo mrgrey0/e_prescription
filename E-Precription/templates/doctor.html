@@ -101,15 +101,12 @@
     <div class="container">
         <h1>Doctor Dashboard</h1>
         <ul class="patient-list">
+            {% for patient in patients %}
             <li class="patient-item">
-                <span class="patient-name">John Doe</span>
+                <span class="patient-name">{{ patient[0] }}</span>
                 <button class="prescribe-button">Prescribe Medication</button>
             </li>
-            <li class="patient-item">
-                <span class="patient-name">Jane Smith</span>
-                <button class="prescribe-button">Prescribe Medication</button>
-            </li>
-            <!-- Add more patient items as needed -->
+            {% endfor %}
         </ul>
     </div>
 
@@ -192,19 +189,5 @@
             tableBody.appendChild(newRow);
         }
     </script>
-    <h1>Added Patients</h1>
-    <ul id="patient-list">
-      {% for patient in patients %}
-        <li>
-          <p><b>Name:</b>{{ patient[0] }}</p>
-          <p><b>Age:</b> {{ patient[1] }}</p>
-          <p><b>Gender:</b> {{ patient[2] }}</p>
-          <p><b>Weight:</b> {{ patient[3] }} kg</p>
-          <p><b>Phone:</b> {{ patient[4] }}</p>
-          <a href="/view/{{ patient[0] }}">
-            <button>EDIT DETAILS</button>
-        </li>
-      {% endfor %}
-    </ul>
 </body>
 </html>

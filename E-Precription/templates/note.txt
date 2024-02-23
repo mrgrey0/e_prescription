@@ -2,7 +2,11 @@
 2 on login page add logic to check if the account that is being logged in is a doctor account or not and redirect it to diffrent pages according to it.
     this will be done by checking the isDoc column value of sql database.
 
-    
+
+ https://g.co/gemini/share/6946b63950b0 
+    - follow this link to see get the medicine elements added by the doctor in table.
+    then add them to the database. and also use them to compose the final PDF.
+        
 only left to view the patients to docotor and add a page to add medicine information.
 
 2 finally then print compose a PDF and download it from the doctor's login

@@ -24,7 +24,8 @@ def homerecep():
 
 @app.route('/homedoc')
 def homedoc():
-    return render_template("doctor.html")
+    r= sqlmethods.getAllPatients()
+    return render_template("doctor.html",patients=r)
 
 @app.route('/view/<name>')
 def view(name):
@@ -76,6 +77,7 @@ def checklogin():
         password = request.form['password']
         res = auth_methods.login(username,password)
         if res=='success':
+            # add sql method to chek if the account is doctor or not.
             return redirect(url_for('homepage'))
         elif res == 'unsuccess':
             return "<P>Something went wrong</P>"
