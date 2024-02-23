@@ -9,6 +9,10 @@ app.secret_key = "diu290u32fh048y224r24r24rfd"
 def register():
     return render_template('register.html')
 
+@app.route('/home')
+def homepg():
+    return render_template('home22.html')
+
 @app.route('/login')
 def loginPg():
     return render_template('login.html')
