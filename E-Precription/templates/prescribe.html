@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor's Medicine Addition Form</title>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-select {
+            /* Same styles as .form-control */
+        }
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Doctor's Medicine Addition Form</h1>
+    <form action="/add_medicine" method="POST" id="medicine-form">
+        <div class="form-group">
+            <label for="patient_id" class="form-label">Patient ID:</label>
+            <input type="text" class="form-control" id="patient_id" name="patient_id" required>
+            <span class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="medicine_id" class="form-label">Medicine:</label>
+            <select id="medicine_id" name="medicine_id" class="form-control form-select" required>
+                <option value="">Select Medicine</option>
+                <option value="1">Paracetamol</option>
+                <option value="2">Ibuprofen</option>
+                </select>
+            <span class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="dosage" class="form-label">Dosage:</label>
+            <input type="text" class="form-control" id="dosage" name="dosage" required>
+            <span class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="frequency" class="form-label">Frequency:</label>
+            <input type="text" class="form-control" id="frequency" name="frequency" required>
+            <span class="error"></span>
+        </div>
+        <div class="form-group">
+            <label for="duration" class="form-label">Duration (days):</label>
+            <input type="number" class="form-control" id="duration" name="duration" min="1" required>
+            <span class="error"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Medicine</button>
+    </form>
+
+    </body>
+</html>
