@@ -5,6 +5,7 @@ import sqlmethods
 app = Flask(__name__)
 app.secret_key = "diu290u32fh048y224r24r24rfd"
 
+pName =''
 @app.route('/register')
 def register():
     return render_template('register.html')
@@ -83,6 +84,26 @@ def checklogin():
             return "<P>Something went wrong</P>"
     else :
         return "NONE"
+    
+
+
+@app.route('/prescribe/<name>',methods=['GET','POST'])
+def pres(name):
+    pName = name
+    if request.method=='GET':
+        return render_template('prescribe.html',patientName=name)
+    elif request.method=='POST':
+        medicine_data = []
+        for row in range(len(request.form.getlist('medicineName'))):
+            medicine_data.append({
+            "medicine": request.form.getlist('medicineName')[row],
+            "duration": request.form.getlist('duration')[row],
+            "quantity": request.form.getlist('quantity')[row],
+            "feeding_rule": request.form.getlist('feedingRules')[row]
+            })
+# add a method to store the databse of medicines to databbase and also print it 
+            sqlmethods.addMedication(pName,medicine_data)
+    return "DONE"
 
 if __name__ == '__main__':
     app.run(debug=True)
