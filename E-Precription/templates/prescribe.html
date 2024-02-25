@@ -3,67 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor's Medicine Addition Form</title>
+    <title>ePrescription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        .form-group {
-            margin-bottom: 15px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
         }
-        .form-label {
-            display: block;
-            margin-bottom: 5px;
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .form-control {
-            display: block;
-            width: 100%;
-            padding: 7px;
-            border: 1px solid #ccc;
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .patient-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .patient-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .patient-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+        .prescribe-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
             border-radius: 4px;
-            box-sizing: border-box;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
         }
-        .form-select {
-            /* Same styles as .form-control */
+        .prescribe-button:hover {
+            background-color: #0056b3;
         }
-        .error {
-            color: red;
-            font-size: 0.8em;
-            margin-top: 5px;
+
+        /* Add Medicine Page Styles */
+        .add-medicine-container {
+            display: none;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .add-more {
+            text-align: right;
+        }
+        .add-more button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .add-more button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1>Doctor's Medicine Addition Form</h1>
-    <form action="/add_medicine" method="POST" id="medicine-form">
-        <div class="form-group">
-            <label for="patient_id" class="form-label">Patient ID:</label>
-            <input type="text" class="form-control" id="patient_id" name="patient_id" required>
-            <span class="error"></span>
+    <form action="/prescribe/{{patientName}}" method="POST">
+    <div class="add-medicine-container">
+        <h1>Add Medicine for {{patientName}}</h1>
+        <table id="medicineTable">
+            <thead>
+                <tr>
+                    <th>Medicine Name</th>
+                    <th>Duration (days)</th>
+                    <th>Quantity</th>
+                    <th>Dosage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <select name="medicineName" required>
+                            <option value="">Select Medicine</option>
+                            <option value="medicine1">Medicine 1</option>
+                            <option value="medicine2">Medicine 2</option>
+                            <!-- Add more medicine options as needed -->
+                        </select>
+                    </td>
+                    <td><input type="number" name="duration" required></td>
+                    <td><input type="number" name="quantity" required></td>
+                    <td>
+                        <select name="feedingRules" required>
+                            <option value="">Select Freuency</option>
+                            <option value="once">Once Daily</option>
+                            <option value="twice">Twice Daily</option>
+                            <option value="thrice">Thrice Daily</option>
+                            <!-- Add more feeding rule options as needed -->
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="add-more">
+            <button onclick="addMedicineRow()"><i class="fas fa-plus"></i></button>
         </div>
-        <div class="form-group">
-            <label for="medicine_id" class="form-label">Medicine:</label>
-            <select id="medicine_id" name="medicine_id" class="form-control form-select" required>
-                <option value="">Select Medicine</option>
-                <option value="1">Paracetamol</option>
-                <option value="2">Ibuprofen</option>
-                </select>
-            <span class="error"></span>
-        </div>
-        <div class="form-group">
-            <label for="dosage" class="form-label">Dosage:</label>
-            <input type="text" class="form-control" id="dosage" name="dosage" required>
-            <span class="error"></span>
-        </div>
-        <div class="form-group">
-            <label for="frequency" class="form-label">Frequency:</label>
-            <input type="text" class="form-control" id="frequency" name="frequency" required>
-            <span class="error"></span>
-        </div>
-        <div class="form-group">
-            <label for="duration" class="form-label">Duration (days):</label>
-            <input type="number" class="form-control" id="duration" name="duration" min="1" required>
-            <span class="error"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Medicine</button>
-    </form>
+        <button type="submit" class="btn-submit">Submit</button>
+    </div>
+</form>
+    <script>
+       
+        const addMedicineContainer = document.querySelector('.add-medicine-container');
+        addMedicineContainer.style.display = 'block';
 
-    </body>
+
+        function addMedicineRow() {
+            const tableBody = document.querySelector('#medicineTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>
+                    <select name="medicineName" required>
+                        <option value="">Select Medicine</option>
+                        <option value="medicine1">Medicine 1</option>
+                        <option value="medicine2">Medicine 2</option>
+                        <!-- Add more medicine options as needed -->
+                    </select>
+                </td>
+                <td><input type="number" name="duration" required></td>
+                <td><input type="number" name="quantity" required></td>
+                <td>
+                    <select name="feedingRules" required>
+                        <option value="">Select Frequency</option> 
+                        <option value="once">Once Daily</option>
+                <option value="twice">Twice Daily</option>
+                <option value="thrice">Thrice Daily</option>
+                
+                        <!-- Add more feeding rule options as needed -->
+                    </select>
+                </td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+    </script>
+</body>
 </html>

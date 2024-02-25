@@ -28,6 +28,22 @@ def getUser(mail):
     result = cursorObject.fetchall()
     return result
 
+def addMedication(name,data):
+    try:
+        # Prepare SQL query using parameterized placeholders for security
+        sql = """
+            INSERT INTO meds (pName, medicine, duration, quantity, dosage)
+            VALUES (%s, %s, %s, %s, %s)
+        """
+
+            # Iterate through medicine_data and execute the query for each medicine
+        for medicine in data:
+            cursorObject.execute(sql, (name, medicine["medicine"], medicine["duration"], medicine["quantity"], medicine["feeding_rule"]))
+            mydb.commit()
+            print("Medicine data inserted successfully!")
+    except mysql.connector.Error as err:
+        print("Error inserting data:", err)
+
 def addPatientToDb(patientName, patientAge, patientGender, patientWeight, patientPhone):
     result =00
     data = (patientName, patientAge, patientGender, patientWeight, patientPhone)
