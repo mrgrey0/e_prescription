@@ -104,6 +104,7 @@
         <table id="medicineTable">
             <thead>
                 <tr>
+                    <th>Symptoms</th>
                     <th>Medicine Name</th>
                     <th>Duration (days)</th>
                     <th>Quantity</th>
@@ -112,6 +113,14 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>
+                        <select name="symptoms" required>
+                            <option value="">Select Symptoms</option>
+                            <option value="medicine1">Fever</option>
+                            <option value="medicine2">Hedache</option>
+                            <!-- Add more medicine options as needed -->
+                        </select>
+                    </td>
                     <td>
                         <select name="medicineName" required>
                             <option value="">Select Medicine</option>
@@ -150,6 +159,14 @@
             const tableBody = document.querySelector('#medicineTable tbody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
+            <td>
+                    <select name="symptoms" required>
+                        <option value="">Select Symptoms</option>
+                        <option value="symp1">Fever</option>
+                        <option value="symp2">Hedache</option>
+                        <!-- Add more medicine options as needed -->
+                    </select>
+                </td>
                 <td>
                     <select name="medicineName" required>
                         <option value="">Select Medicine</option>

@@ -10,6 +10,10 @@ pName =''
 def register():
     return render_template('register.html')
 
+@app.route('/home')
+def homepg():
+    return render_template('home22.html')
+
 @app.route('/login')
 def loginPg():
     return render_template('login.html')
