@@ -63,7 +63,12 @@ def getAllPatients():
     patients = cursorObject.fetchall()
     return patients
 
+def getMedicineDetails():
+    query = "SELECT symptoms, Medicines, Dosage FROM your_table"
+    cursorObject.execute(query)
+    data = cursorObject.fetchall()
 
+    return data
 #if __name__ =='__main__':
 #    r = getAllPatients()
 #    print(r)
