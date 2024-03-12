@@ -28,17 +28,21 @@ def getUser(mail):
     result = cursorObject.fetchall()
     return result
 
+def getMedicineData(patient_name):
+    cursorObject.execute(f"SELECT * FROM presMeds WHERE Pname = '{patient_name}'")
+    return cursorObject.fetchall()
+
 def addMedication(name,data):
     try:
         # Prepare SQL query using parameterized placeholders for security
         sql = """
-            INSERT INTO meds (pName, medicine, duration, quantity, dosage)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO presMeds (patientName, symptoms, medicine, duration, quantity, dosage)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """
 
             # Iterate through medicine_data and execute the query for each medicine
         for medicine in data:
-            cursorObject.execute(sql, (name, medicine["medicine"], medicine["duration"], medicine["quantity"], medicine["feeding_rule"]))
+            cursorObject.execute(sql, (name,medicine['symptom'], medicine["medicine"], medicine["duration"], medicine["quantity"], medicine["feeding_rule"]))
             mydb.commit()
             print("Medicine data inserted successfully!")
     except mysql.connector.Error as err:
@@ -67,7 +71,6 @@ def getMedicineDetails():
     query = "SELECT symptoms, Medicines, Dosage FROM your_table"
     cursorObject.execute(query)
     data = cursorObject.fetchall()
-
     return data
 #if __name__ =='__main__':
 #    r = getAllPatients()

@@ -100,14 +100,17 @@ def pres(name):
         medicine_data = []
         for row in range(len(request.form.getlist('medicineName'))):
             medicine_data.append({
+            "symptom" : request.form.getlist('symptoms')[row],
             "medicine": request.form.getlist('medicineName')[row],
             "duration": request.form.getlist('duration')[row],
             "quantity": request.form.getlist('quantity')[row],
             "feeding_rule": request.form.getlist('feedingRules')[row]
             })
-# add a method to store the databse of medicines to databbase and also print it 
+
             sqlmethods.addMedication(pName,medicine_data)
-    return "DONE"
+    return """<form action="/submit_data">
+                <button type="submit">Submit Data</button>
+            </form>"""
 
 if __name__ == '__main__':
     app.run(debug=True)
