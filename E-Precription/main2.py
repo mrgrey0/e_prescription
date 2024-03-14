@@ -1,6 +1,53 @@
-from flask import Flask, flash, redirect, render_template,request, url_for
+from flask import Flask, flash, redirect, render_template,request, url_for, make_response
 import auth_methods
 import sqlmethods
+#from pdf_code import generate
+from fpdf import FPDF
+
+def generate(patient_name, data):
+  """
+  Generates a prescription PDF for the given patient and data.
+
+  Args:
+      patient_name: Name of the patient.
+      data: List of tuples containing prescription details.
+
+  Returns:
+      A byte string containing the PDF data.
+  """
+  pdf = FPDF()
+  pdf.add_page()
+
+  # Hospital and Doctor Information (Edit as needed)
+  pdf.set_font("Arial", size=12)
+  pdf.cell(200, 10, txt="Sai Hospital - Dr. Rajendra Dilip Pardeshi B.A.M.S CCH, MD(sch) GENERAL PHYSICIAN", ln=1, align='C')
+  pdf.cell(200, 10, txt="Address: Indranil Corner, Yeola Contact: 9421212322", ln=2, align='C')
+
+  # Patient Name
+  pdf.cell(200, 10, txt=f"Patient Name: {patient_name}", ln=2, align='L')
+
+  # Prescription Details Header
+  pdf.set_font("Arial", size=10)
+  pdf.cell(60, 10, txt="Symptoms", border=1, align='C')
+  pdf.cell(60, 10, txt="Medicine", border=1, align='C')
+  pdf.cell(40, 10, txt="Duration", border=1, align='C')
+  pdf.cell(40, 10, txt="Quantity", border=1, align='C')
+  pdf.cell(40, 10, txt="Dosage", border=1, ln=1, align='C')
+
+  # Populate prescription details
+  for row in data:
+      symptoms, medName, duration, quantity, dosage = row
+      pdf.set_font("Arial", size=10)
+      pdf.cell(60, 10, txt=symptoms, border=1, align='L')
+      pdf.cell(60, 10, txt=medName, border=1, align='L')
+      pdf.cell(40, 10, txt=str(duration), border=1, align='C')
+      pdf.cell(40, 10, txt=str(quantity), border=1, align='C')
+      pdf.cell(40, 10, txt=dosage, border=1, ln=1, align='L')
+
+  filename = f"prescription_{patient_name}.pdf"  # Generate filename directly
+  pdf.output(filename, 'F')  # Save PDF with generated filename
+  return filename  
+
 
 app = Flask(__name__)
 app.secret_key = "diu290u32fh048y224r24r24rfd"
@@ -108,9 +155,30 @@ def pres(name):
             })
 
             sqlmethods.addMedication(pName,medicine_data)
-    return """<form action="/submit_data">
+    return """<form action="/download_prescription/{{patientName}}">
                 <button type="submit">Submit Data</button>
             </form>"""
+
+@app.route("/download_prescription/<pName>")
+def download_prescription(pName):
+  """
+  Generates and downloads the prescription PDF for the given patient name.
+
+  Args:
+      patient_name: Name of the patient.
+
+  Returns:
+      A Flask response object with the PDF data attached for download.
+  """
+  prescription_data = sqlmethods.getMedicineData(pName)
+  filename = generate(pName, prescription_data)
+
+  # Prepare response for download
+  #response = make_response(pdf_data, 200)
+  #response.headers['Content-Type'] = 'application/pdf'
+  #response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+
+  return "ODNE"
 
 if __name__ == '__main__':
     app.run(debug=True)
