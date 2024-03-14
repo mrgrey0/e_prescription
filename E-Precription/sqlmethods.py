@@ -28,9 +28,14 @@ def getUser(mail):
     result = cursorObject.fetchall()
     return result
 
-def getMedicineData(patient_name):
-    cursorObject.execute(f"SELECT * FROM presMeds WHERE patientName = '{patient_name}'")
-    return cursorObject.fetchall()
+def getMedicineData(name):
+    #cursorObject.execute("SELECT * FROM presMeds WHERE patientName = '{patient_name}'")
+    #return cursorObject.fetchall()
+
+    select_stmt = "SELECT * FROM presMeds WHERE patientName = %(name)s"
+    cursorObject.execute(select_stmt, { 'name': name })
+    result = cursorObject.fetchall()
+    return result
 
 def addMedication(name,data):
     try:

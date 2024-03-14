@@ -24,7 +24,7 @@ def generate(patient_name, data):
   pdf.cell(200, 10, txt="Address: Indranil Corner, Yeola Contact: 9421212322", ln=2, align='C')
 
   # Patient Name
-  pdf.cell(200, 10, txt=f"Patient Name: {patient_name}", ln=2, align='L')
+  pdf.cell(200, 10, txt=patient_name, ln=2, align='L')
 
   # Prescription Details Header
   pdf.set_font("Arial", size=10)
@@ -36,13 +36,13 @@ def generate(patient_name, data):
 
   # Populate prescription details
   for row in data:
-      symptoms, medName, duration, quantity, dosage = row
+      #symptoms, medName, duration, quantity, dosage = row
       pdf.set_font("Arial", size=10)
-      pdf.cell(60, 10, txt=symptoms, border=1, align='L')
-      pdf.cell(60, 10, txt=medName, border=1, align='L')
-      pdf.cell(40, 10, txt=str(duration), border=1, align='C')
-      pdf.cell(40, 10, txt=str(quantity), border=1, align='C')
-      pdf.cell(40, 10, txt=dosage, border=1, ln=1, align='L')
+      pdf.cell(60, 10, txt=row[1], border=1, align='L')
+      pdf.cell(60, 10, txt=row[2], border=1, align='L')
+      pdf.cell(40, 10, txt=str(row[3]), border=1, align='C')
+      pdf.cell(40, 10, txt=str(row[4]), border=1, align='C')
+      pdf.cell(40, 10, txt=row[5], border=1, ln=1, align='L')
 
   filename = f"prescription_{patient_name}.pdf"  # Generate filename directly
   pdf.output(filename, 'F')  # Save PDF with generated filename
@@ -155,30 +155,14 @@ def pres(name):
             })
 
             sqlmethods.addMedication(pName,medicine_data)
-    return """<form action="/download_prescription/{{patientName}}">
-                <button type="submit">Submit Data</button>
-            </form>"""
 
-@app.route("/download_prescription/<pName>")
-def download_prescription(pName):
-  """
-  Generates and downloads the prescription PDF for the given patient name.
-
-  Args:
-      patient_name: Name of the patient.
-
-  Returns:
-      A Flask response object with the PDF data attached for download.
-  """
-  prescription_data = sqlmethods.getMedicineData(pName)
-  filename = generate(pName, prescription_data)
-
-  # Prepare response for download
-  #response = make_response(pdf_data, 200)
-  #response.headers['Content-Type'] = 'application/pdf'
-  #response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-
-  return "ODNE"
+            prescription_data = sqlmethods.getMedicineData(pName)
+            print(prescription_data)
+            filename = generate(pName, prescription_data)
+            response = make_response(filename, 200)
+            response.headers['Content-Type'] = 'application/pdf'
+            response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+    return "SUCESS"
 
 if __name__ == '__main__':
     app.run(debug=True)
