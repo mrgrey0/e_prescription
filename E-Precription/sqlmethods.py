@@ -72,6 +72,18 @@ def getAllPatients():
     patients = cursorObject.fetchall()
     return patients
 
+def getSymptoms():
+    query ="SELECT symptoms FROM symptoms"
+    cursorObject.execute(query)
+    symptoms = cursorObject.fetchall()
+    return symptoms
+
+def getMedicine():
+    query ="SELECT mdedicine FROM mdedicine"
+    cursorObject.execute(query)
+    mdeicines = cursorObject.fetchall()
+    return mdeicines
+
 def getMedicineDetails():
     query = "SELECT symptoms, Medicines, Dosage FROM your_table"
     cursorObject.execute(query)

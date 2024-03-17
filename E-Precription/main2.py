@@ -3,6 +3,15 @@ import auth_methods
 import sqlmethods
 #from pdf_code import generate
 from fpdf import FPDF
+from flask_wtf import FlaskForm
+from wtforms import SelectField, IntegerField
+
+class MedicationForm(FlaskForm):
+    symptoms = SelectField('Symptoms' ,choices=['Fever'])  # Optional field
+    medicine_name = SelectField('Medicine Name' )  # Optional field
+    duration = IntegerField('Duration (days)' )  # Optional field
+    quantity = IntegerField('Quantity')  # Optional field
+    feeding_rules = SelectField('Dosage')
 
 def generate(patient_name, data):
   """
@@ -140,24 +149,51 @@ def checklogin():
 
 @app.route('/prescribe/<name>',methods=['GET','POST'])
 def pres(name):
+    form = MedicationForm()
     pName = name
     if request.method=='GET':
-        return render_template('prescribe.html',patientName=name)
+        s = sqlmethods.getSymptoms()
+        m = sqlmethods.getMedicine()
+        print(s)
+        return render_template('prescribe.html',patientName=name,symptoms=s,medicines=m,form=form)
     elif request.method=='POST':
-        medicine_data = []
-        for row in range(len(request.form.getlist('medicineName'))):
-            medicine_data.append({
-            "symptom" : request.form.getlist('symptoms')[row],
-            "medicine": request.form.getlist('medicineName')[row],
-            "duration": request.form.getlist('duration')[row],
-            "quantity": request.form.getlist('quantity')[row],
-            "feeding_rule": request.form.getlist('feedingRules')[row]
-            })
+        if form.validate_on_submit():  # Validate the form data
+            medicine_data = []
 
-            sqlmethods.addMedication(pName,medicine_data)
+            # Loop through each form object (one per row)
+            for medicine_form in form:
+                symptoms = medicine_form.symptoms.data
+                medicine_name = medicine_form.medicine_name.data
+                duration = medicine_form.duration.data
+                quantity = medicine_form.quantity.data
+                feeding_rules = medicine_form.feeding_rules.data
+
+                # Create and append medication data dictionaries
+                medicine_data.append({
+                    "symptom": symptoms,
+                    "medicine": medicine_name,
+                    "duration": duration,
+                    "quantity": quantity,
+                    "feeding_rule": feeding_rules
+                })
+
+            # Call your medication adding function with the list of medication data
+            sqlmethods.addMedication(pName, medicine_data)
+
+#        medicine_data = []
+#        for row in request.form:
+#            medicine_data.append({
+#            "symptom" : request.form.get('symptomsl'),
+#            "medicine": request.form.get('medicineName'),
+#            "duration": request.form.get('duration'),
+#            "quantity": request.form.get('quantity'),
+#            "feeding_rule": request.form.get('feedingRules')
+#            })
+            
+            #sqlmethods.addMedication(pName,medicine_data)
 
             prescription_data = sqlmethods.getMedicineData(pName)
-            print(prescription_data)
+            #print(prescription_data)
             filename = generate(pName, prescription_data)
             response = make_response(filename, 200)
             response.headers['Content-Type'] = 'application/pdf'

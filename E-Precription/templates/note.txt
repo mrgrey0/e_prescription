@@ -1,18 +1,7 @@
-task 1 : add the medicines to database and show them in the html dropdown list
+add list of choices in the form object.
+check if the value in DB is correct
+
+add messeing control and call the method. 
 
 
-
-so only theres a catch. in the meds table theres a field named pname and it's actully storing the mobile number
-it was done to make the section unique. without changing the whole table.
-
-https://g.co/gemini/share/3c9865503a39
-    - for the number showing in the doctor page.
-
-
- https://g.co/gemini/share/6946b63950b0 
-    - follow this link to see get the medicine elements added by the doctor in table.
-    then add them to the database. and also use them to compose the final PDF.
-        
-only left to view the patients to docotor and add a page to add medicine information.
-
-2 finally then print compose a PDF and download it from the doctor's login
+Finalize the project.

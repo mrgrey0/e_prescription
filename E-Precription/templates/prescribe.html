@@ -114,24 +114,31 @@
             <tbody>
                 <tr>
                     <td>
-                        <select name="symptoms" required>
+                        {{ form.symptoms(form=form) }}
+                        <!--<select name="symptomsl" required>
                             <option value="">Select Symptoms</option>
-                            <option value="medicine1">Fever</option>
-                            <option value="medicine2">Hedache</option>
-                            <!-- Add more medicine options as needed -->
-                        </select>
+                            {% for symptom in symptoms %}
+                            <option value="symptom1">{{ symptom[0] }}</option>
+                            {% endfor %}
+                        </select>-->
                     </td>
                     <td>
+                        {{ form.medicine_name(form=medicine_form) }}
                         <select name="medicineName" required>
                             <option value="">Select Medicine</option>
-                            <option value="medicine1">Medicine 1</option>
-                            <option value="medicine2">Medicine 2</option>
-                            <!-- Add more medicine options as needed -->
+                            {% for medicine in medicines %}
+                            <option value="medicine1">{{medicine[0]}}</option>
+                            {% endfor %}
                         </select>
                     </td>
-                    <td><input type="number" name="duration" required></td>
-                    <td><input type="number" name="quantity" required></td>
                     <td>
+                        {{ form.duration(form=medicine_form) }}
+                        <input type="number" name="duration" required></td>
+                    <td>
+                        {{ form.quantity(form=medicine_form) }}
+                        <input type="number" name="quantity" required></td>
+                    <td>
+                        {{ form.feeding_rules(form=medicine_form) }}
                         <select name="feedingRules" required>
                             <option value="">Select Freuency</option>
                             <option value="once">Once Daily</option>
@@ -159,20 +166,20 @@
             const tableBody = document.querySelector('#medicineTable tbody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-            <td>
+                <td>
                     <select name="symptoms" required>
                         <option value="">Select Symptoms</option>
-                        <option value="symp1">Fever</option>
-                        <option value="symp2">Hedache</option>
-                        <!-- Add more medicine options as needed -->
+                        {% for symptom in symptoms %}
+                        <option value="symptom1">{{ symptom[0] }}</option>
+                        {% endfor %}
                     </select>
                 </td>
                 <td>
                     <select name="medicineName" required>
                         <option value="">Select Medicine</option>
-                        <option value="medicine1">Medicine 1</option>
-                        <option value="medicine2">Medicine 2</option>
-                        <!-- Add more medicine options as needed -->
+                        {% for medicine in medicines %}
+                        <option value="medicine1">{{medicine[0]}}</option>
+                        {% endfor %}
                     </select>
                 </td>
                 <td><input type="number" name="duration" required></td>
