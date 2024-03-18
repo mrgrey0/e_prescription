@@ -7,11 +7,11 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, IntegerField
 
 class MedicationForm(FlaskForm):
-    symptoms = SelectField('Symptoms' ,choices=['Fever'])  # Optional field
-    medicine_name = SelectField('Medicine Name' )  # Optional field
+    symptoms = SelectField('Symptoms',choices=['Fever','Hedache','WBC Drop','Body Pain','Rashes','Platelets Drop','High Fever','Body Pain','Hedache','Abdomen Pain','WBC Increase','Cough/Sneezing','Fever','Hedache','Body Pain','Watery/Red eyes','WBC Decrease','Lose Motion','Migration','Weakness','Dehidration','Fever','Abdomen Pain','Vomiting','Headache','Fast Heart Rate','Chest Pain','Cough/Cough with Blood','Night Sweats','Weight Loss',])  # Optional field
+    medicine_name = SelectField('Medicine Name', choices=['Inj. Pan 40mg','Betadine Gargle','Cap. Fluvir 75mg','Cap. Vibact','Cap. Vibact ','Inj. Amikacin 500','Inj. Amikacin 500gm','Inj. Amkacin 500','Inj. Artisam 120gm','Inj. Artisunate 120gm','Inj. Finecef 1gm','Inj. Finecef T 1.125gm','Inj. Maxotan 4.5','Inj. Merosure 1gm','Inj. Pan 40mg','Inj. Pantop 40gm','Inj. Pipzo 4.5','Inj. Swich XP 1.125gm','Inj. Zostum 1.5gm','IU DNS RL','IU RL NS','Nab. Duolin Budecort','Syp. Ascoril Ls','Syp. Brozety','Syp. Grilli','Tab. Dolo 650','Tab. Lomotile(Sos)','Tab. Xycass 650(sos)','Tb. Akurit 400(6 months)','Tb. B. Complex','Tb. Caripap','Tb. Clabum 626','Tb. Doxy 100.','Tb. Drotin M.','Tb. Mucinac 600mg','Tb. Nicip Plus','Tb. Nicip Plus','Tb. Pan 40mg','Tb. Sumoflam','Tb. Xycaa 650','Tb. Xycaa 650(Sos)'] )  # Optional field
     duration = IntegerField('Duration (days)' )  # Optional field
     quantity = IntegerField('Quantity')  # Optional field
-    feeding_rules = SelectField('Dosage')
+    feeding_rules = SelectField('Dosage', choices=['Once a day','Twice a day','Thrice a day'])
 
 def generate(patient_name, data):
   """
@@ -152,33 +152,36 @@ def pres(name):
     form = MedicationForm()
     pName = name
     if request.method=='GET':
-        s = sqlmethods.getSymptoms()
-        m = sqlmethods.getMedicine()
-        print(s)
-        return render_template('prescribe.html',patientName=name,symptoms=s,medicines=m,form=form)
+        #s = sqlmethods.getSymptoms()
+        #m = sqlmethods.getMedicine()
+        #print(s)
+        return render_template('prescribe.html',patientName=name,form=form)
     elif request.method=='POST':
-        if form.validate_on_submit():  # Validate the form data
-            medicine_data = []
+        form2 = MedicationForm()
+        if form2.validate_on_submit():  # Validate the form data
+            symptoms = []
+            medicine_names = []
+            durations = []
+            quantities = []
+            dosages = []
 
             # Loop through each form object (one per row)
-            for medicine_form in form:
-                symptoms = medicine_form.symptoms.data
-                medicine_name = medicine_form.medicine_name.data
-                duration = medicine_form.duration.data
-                quantity = medicine_form.quantity.data
-                feeding_rules = medicine_form.feeding_rules.data
-
-                # Create and append medication data dictionaries
-                medicine_data.append({
-                    "symptom": symptoms,
-                    "medicine": medicine_name,
-                    "duration": duration,
-                    "quantity": quantity,
-                    "feeding_rule": feeding_rules
-                })
+            for key, value in request.form.items():
+                if key.startswith('symptoms_'):
+                    symptoms.append(value)
+                elif key.startswith('medicine_name_'):
+                    medicine_names.append(value)
+                elif key.startswith('duration_'):
+                    durations.append(int(value))  # Convert duration to integer
+                elif key.startswith('quantity_'):
+                    quantities.append(int(value))  # Convert quantity to integer
+                elif key.startswith('dosage_'):
+                    dosages.append(value)
 
             # Call your medication adding function with the list of medication data
-            sqlmethods.addMedication(pName, medicine_data)
+            print(pName)
+            print(symptoms,medicine_names,durations,quantities,dosages)
+            #sqlmethods.addMedication(pName, medicine_data)
 
 #        medicine_data = []
 #        for row in request.form:
@@ -198,7 +201,7 @@ def pres(name):
             response = make_response(filename, 200)
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-    return "SUCESS"
+        return "SUCESS"
 
 if __name__ == '__main__':
     app.run(debug=True)
