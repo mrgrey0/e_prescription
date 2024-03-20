@@ -99,6 +99,7 @@
 </head>
 <body>
     <form action="/prescribe/{{patientName}}" method="POST">
+        {{ form.csrf_token }}
     <div class="add-medicine-container">
         <h1>Add Medicine for {{patientName}}</h1>
         <table id="medicineTable">
@@ -114,7 +115,7 @@
             <tbody>
                 <tr>
                     <td>
-                        {{ form.symptoms(form=form) }}
+                        {{ form.symptoms() }}
                         <!--<select name="symptomsl" required>
                             <option value="">Select Symptoms</option>
                             {% for symptom in symptoms %}
@@ -123,7 +124,7 @@
                         </select>-->
                     </td>
                     <td>
-                        {{ form.medicine_name(form=medicine_form) }}
+                        {{ form.medicine_name() }}
                         <!--<select name="medicineName" required>
                             <option value="">Select Medicine</option>
                             {% for medicine in medicines %}
@@ -132,13 +133,13 @@
                         </select>-->
                     </td>
                     <td>
-                        {{ form.duration(form=medicine_form) }}
+                        {{ form.duration() }}
                         <!--<input type="number" name="duration" required></td>-->
                     <td>
-                        {{ form.quantity(form=medicine_form) }}
+                        {{ form.quantity() }}
                         <!--<input type="number" name="quantity" required></td>-->
                     <td>
-                        {{ form.feeding_rules(form=medicine_form) }}
+                        {{ form.feeding_rules() }}
                         <!--<select name="feedingRules" required>
                             <option value="">Select Freuency</option>
                             <option value="once">Once Daily</option>

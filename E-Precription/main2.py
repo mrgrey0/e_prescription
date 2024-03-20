@@ -157,8 +157,8 @@ def pres(name):
         #print(s)
         return render_template('prescribe.html',patientName=name,form=form)
     elif request.method=='POST':
-        form2 = MedicationForm()
-        if form2.validate_on_submit():  # Validate the form data
+        form = MedicationForm()
+        if form.validate_on_submit():  # Validate the form data
             symptoms = []
             medicine_names = []
             durations = []
