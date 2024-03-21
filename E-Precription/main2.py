@@ -159,28 +159,28 @@ def pres(name):
     elif request.method=='POST':
         form = MedicationForm()
         if form.validate_on_submit():  # Validate the form data
-            symptoms = []
-            medicine_names = []
-            durations = []
-            quantities = []
-            dosages = []
+            # Access form data
+            symptoms_list = request.form.getlist('symptoms[]')  # List of symptoms for each row
+            medicine_names_list = request.form.getlist('medicine_name[]')  # List of medicine names for each row
+            durations_list = request.form.getlist('duration[]')  # List of durations for each row
+            quantities_list = request.form.getlist('quantity[]')  # List of quantities for each row
+            feeding_rules_list = request.form.getlist('feeding_rules[]')  # List of feeding rules for each row
 
-            # Loop through each form object (one per row)
-            for key, value in request.form.items():
-                if key.startswith('symptoms_'):
-                    symptoms.append(value)
-                elif key.startswith('medicine_name_'):
-                    medicine_names.append(value)
-                elif key.startswith('duration_'):
-                    durations.append(int(value))  # Convert duration to integer
-                elif key.startswith('quantity_'):
-                    quantities.append(int(value))  # Convert quantity to integer
-                elif key.startswith('dosage_'):
-                    dosages.append(value)
+            # Loop through each row and access data
+            for i in range(len(symptoms_list)):
+                symptoms = symptoms_list[i]
+                medicine_name = medicine_names_list[i]
+                duration = durations_list[i]
+                quantity = quantities_list[i]
+                feeding_rule = feeding_rules_list[i]
+
+                print(f"Patient: {pName}, Symptoms: {symptoms}, Medicine: {medicine_name}, Duration: {duration} days, Quantity: {quantity}, Feeding Rule: {feeding_rule}")
+                # Process data for each row (e.g., print, insert into database)
+
 
             # Call your medication adding function with the list of medication data
-            print(pName)
-            print(symptoms,medicine_names,durations,quantities,dosages)
+            print(symptoms_list)
+            #print(symptoms,medicine_name,duration,quantity,feeding_rule)
             #sqlmethods.addMedication(pName, medicine_data)
 
 #        medicine_data = []

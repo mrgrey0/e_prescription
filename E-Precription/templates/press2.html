@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ePrescription</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Your styles here */
+  </style>
+</head>
+<body>
+  <form action="/prescribe/{{ patientName }}" method="POST">
+    {{ form.csrf_token }}
+    <div class="add-medicine-container">
+      <h1>Add Medicine for {{ patientName }}</h1>
+      <table id="medicineTable">
+        <thead>
+          <tr>
+            <th>Symptoms</th>
+            <th>Medicine Name</th>
+            <th>Duration (days)</th>
+            <th>Quantity</th>
+            <th>Dosage</th>
+          </tr>
+        </thead>
+        <tbody>
+          </tbody>
+      </table>
+      <div class="add-more">
+        <button onclick="addMedicineRow()"><i class="fas fa-plus"></i></button>
+      </div>
+      <button type="submit" class="btn-submit">Submit</button>
+    </div>
+  </form>
+  <script>
+    // Access the container element and show it initially
+    const addMedicineContainer = document.querySelector('.add-medicine-container');
+    addMedicineContainer.style.display = 'block';
+
+    function addMedicineRow() {
+      const tableBody = document.querySelector('#medicineTable tbody');
+      const newRow = document.createElement('tr');
+
+      // Create form elements dynamically for new row
+      const symptomsSelect = document.createElement('select');
+      symptomsSelect.name = 'symptoms[]'; // Use array name for multiple values
+
+      const medicineNameInput = document.createElement('input');
+      medicineNameInput.type = 'text';
+      medicineNameInput.name = 'medicine_name[]'; // Use array name for multiple values
+
+      const durationInput = document.createElement('input');
+      durationInput.type = 'number';
+      durationInput.name = 'duration[]'; // Use array name for multiple values
+
+      const quantityInput = document.createElement('input');
+      quantityInput.type = 'number';
+      quantityInput.name = 'quantity[]'; // Use array name for multiple values
+
+      const feedingRulesSelect = document.createElement('select');
+      feedingRulesSelect.name = 'feeding_rules[]'; // Use array name for multiple values
+
+      // Add options to feeding rules select (example)
+      const feedingRuleOptions = ['Once Daily', 'Twice Daily', 'Thrice Daily'];
+      feedingRuleOptions.forEach(option => {
+        const feedingRuleOption = document.createElement('option');
+        feedingRuleOption.value = option;
+        feedingRuleOption.textContent = option;
+        feedingRulesSelect.appendChild(feedingRuleOption);
+      });
+
+      // Append form elements to the new row
+      newRow.appendChild(createSelectCell(symptomsSelect)); // Assuming a function to create cell with select
+      newRow.appendChild(createTextCell(medicineNameInput));  // Assuming a function to create cell with input
+      newRow.appendChild(createNumberCell(durationInput));  // Assuming a function with input
+      newRow.appendChild(createNumberCell(quantityInput));  // Assuming a function with input
+      newRow.appendChild(createSelectCell(feedingRulesSelect)); // Assuming a function to create cell with select
+
+      tableBody.appendChild(newRow);
+    }
+
+    // Helper functions to create cells with elements (replace with your actual implementation)
+    function createSelectCell(selectElement) {
+      const cell = document.createElement('td');
+      cell.appendChild(selectElement);
+      return cell;
+    }
+
+    function createTextCell(textInput) {
+      const cell = document.createElement('td');
+      cell.appendChild(textInput);
+      return cell;
+    }
+
+    function createNumberCell(numberInput) {
+      const cell = document.createElement('td');
+      cell.appendChild(numberInput);
+      return cell;
+    }
+  </script>
+</body>
+</html>

@@ -152,7 +152,7 @@
             </tbody>
         </table>
         <div class="add-more">
-            <button onclick="addMedicineRow()"><i class="fas fa-plus"></i></button>
+            <button type="button" onclick="addMedicineRow()"><i class="fas fa-plus"></i></button>
         </div>
         <button type="submit" class="btn-submit">Submit</button>
     </div>
@@ -164,40 +164,40 @@
 
 
         function addMedicineRow() {
-            const tableBody = document.querySelector('#medicineTable tbody');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>
-                    <select name="symptoms" required>
-                        <option value="">Select Symptoms</option>
-                        {% for symptom in symptoms %}
-                        <option value="symptom1">{{ symptom[0] }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-                <td>
-                    <select name="medicineName" required>
-                        <option value="">Select Medicine</option>
-                        {% for medicine in medicines %}
-                        <option value="medicine1">{{medicine[0]}}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-                <td><input type="number" name="duration" required></td>
-                <td><input type="number" name="quantity" required></td>
-                <td>
-                    <select name="feedingRules" required>
-                        <option value="">Select Frequency</option> 
-                        <option value="once">Once Daily</option>
-                <option value="twice">Twice Daily</option>
-                <option value="thrice">Thrice Daily</option>
-                
-                        <!-- Add more feeding rule options as needed -->
-                    </select>
-                </td>
-            `;
-            tableBody.appendChild(newRow);
-        }
+  const tableBody = document.querySelector('#medicineTable tbody');
+  const newRow = document.createElement('tr');
+
+  // Create select element for symptoms
+  const symptomsSelect = document.createElement('select');
+  symptomsSelect.name = 'symptoms[]';  // Add array name for multiple values
+
+  // Create input element for medicine name
+  const medicineNameInput = document.createElement('input');
+  medicineNameInput.type = 'text';
+  medicineNameInput.name = 'medicine_name[]';  // Add array name for multiple values
+
+  // ... (create similar elements for duration, quantity, feeding rules)
+
+  // Append elements to the new row
+  newRow.appendChild(createSelectCell(symptomsSelect)); // Assuming a function to create cell with select
+  newRow.appendChild(createTextCell(medicineNameInput));  // Assuming a function to create cell with input
+  // ... (append other elements)
+
+  tableBody.appendChild(newRow);
+}
+
+// Helper functions to create cells with elements (replace with your actual implementation)
+function createSelectCell(selectElement) {
+  const cell = document.createElement('td');
+  cell.appendChild(selectElement);
+  return cell;
+}
+
+function createTextCell(textInput) {
+  const cell = document.createElement('td');
+  cell.appendChild(textInput);
+  return cell;
+}
     </script>
 </body>
 </html>
