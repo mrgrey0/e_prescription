@@ -47,11 +47,11 @@ def generate(patient_name, data):
   for row in data:
       #symptoms, medName, duration, quantity, dosage = row
       pdf.set_font("Arial", size=10)
-      pdf.cell(60, 10, txt=row[1], border=1, align='L')
-      pdf.cell(60, 10, txt=row[2], border=1, align='L')
-      pdf.cell(40, 10, txt=str(row[3]), border=1, align='C')
-      pdf.cell(40, 10, txt=str(row[4]), border=1, align='C')
-      pdf.cell(40, 10, txt=row[5], border=1, ln=1, align='L')
+      pdf.cell(30, 10, txt=row[1], border=1, align='L')
+      pdf.cell(30, 10, txt=row[2], border=1, align='L')
+      pdf.cell(30, 10, txt=str(row[3]), border=1, align='C')
+      pdf.cell(30, 10, txt=str(row[4]), border=1, align='C')
+      pdf.cell(30, 10, txt=row[5], border=1, ln=1, align='L')
 
   filename = f"prescription_{patient_name}.pdf"  # Generate filename directly
   pdf.output(filename, 'F')  # Save PDF with generated filename
@@ -179,26 +179,8 @@ def pres(name):
             
             sqlmethods.addMedication(pName, symptoms_list, medicine_names_list, durations_list, quantities_list, feeding_rules_list)
 
-
-            # Call your medication adding function with the list of medication data
-            #print(symptoms_list)
-            #print(symptoms,medicine_name,duration,quantity,feeding_rule)
-            #sqlmethods.addMedication(pName, medicine_data)
-
-#        medicine_data = []
-#        for row in request.form:
-#            medicine_data.append({
-#            "symptom" : request.form.get('symptomsl'),
-#            "medicine": request.form.get('medicineName'),
-#            "duration": request.form.get('duration'),
-#            "quantity": request.form.get('quantity'),
-#            "feeding_rule": request.form.get('feedingRules')
-#            })
-            
-            #sqlmethods.addMedication(pName,medicine_data)
-
             prescription_data = sqlmethods.getMedicineData(pName)
-            #print(prescription_data)
+
             filename = generate(pName, prescription_data)
             response = make_response(filename, 200)
             response.headers['Content-Type'] = 'application/pdf'
