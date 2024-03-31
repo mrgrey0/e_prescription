@@ -37,7 +37,7 @@ def getMedicineData(name):
     result = cursorObject.fetchall()
     return result
 
-def addMedication(name,data):
+def addMedication(name,symptoms, medicine_names, durations, quantities, feeding_rules):
     try:
         # Prepare SQL query using parameterized placeholders for security
         sql = """
@@ -46,10 +46,19 @@ def addMedication(name,data):
         """
 
             # Iterate through medicine_data and execute the query for each medicine
-        for medicine in data:
-            cursorObject.execute(sql, (name,medicine['symptom'], medicine["medicine"], medicine["duration"], medicine["quantity"], medicine["feeding_rule"]))
+        for i in range(len(symptoms)):
+            symptom = symptoms[i]
+            medicine_name = medicine_names[i]
+            duration = durations[i]
+            quantity = quantities[i]
+            feeding_rule = feeding_rules[i]
+
+            data = (name, symptom, medicine_name, duration, quantity, feeding_rule)
+
+            cursorObject.execute(sql, data)
+
             mydb.commit()
-            print("Medicine data inserted successfully!")
+        print("Medicine data inserted successfully!")
     except mysql.connector.Error as err:
         print("Error inserting data:", err)
 

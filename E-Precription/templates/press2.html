@@ -6,8 +6,95 @@
   <title>ePrescription</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* Your styles here */
-  </style>
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .patient-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .patient-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .patient-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 18px;
+        }
+        .prescribe-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .prescribe-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add Medicine Page Styles */
+        .add-medicine-container {
+            display: none;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .add-more {
+            text-align: right;
+        }
+        .add-more button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .add-more button:hover {
+            background-color: #0056b3;
+        }  </style>
 </head>
 <body>
   <form action="/prescribe/{{ patientName }}" method="POST">
@@ -24,63 +111,70 @@
             <th>Dosage</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="medicineTableBody">
           </tbody>
       </table>
       <div class="add-more">
-        <button onclick="addMedicineRow()"><i class="fas fa-plus"></i></button>
+        <button type="button" onclick="addMedicineRow()"><i class="fas fa-plus"></i></button>
       </div>
       <button type="submit" class="btn-submit">Submit</button>
     </div>
   </form>
   <script>
-    // Access the container element and show it initially
-    const addMedicineContainer = document.querySelector('.add-medicine-container');
-    addMedicineContainer.style.display = 'block';
+    const medicineTableBody = document.getElementById('medicineTableBody');
 
     function addMedicineRow() {
-      const tableBody = document.querySelector('#medicineTable tbody');
       const newRow = document.createElement('tr');
 
-      // Create form elements dynamically for new row
+      // Create select element for symptoms (replace with your options)
       const symptomsSelect = document.createElement('select');
-      symptomsSelect.name = 'symptoms[]'; // Use array name for multiple values
+      symptomsSelect.name = 'symptoms[]';
+      symptomsSelect.required = true; // Add required attribute
+      const symptomOption1 = document.createElement('option');
+      symptomOption1.value = 'symptom1';
+      symptomOption1.text = 'Symptom 1';
+      symptomsSelect.appendChild(symptomOption1);
+      // ... Add more symptom options as needed
 
+      // Create input element for medicine name
       const medicineNameInput = document.createElement('input');
       medicineNameInput.type = 'text';
-      medicineNameInput.name = 'medicine_name[]'; // Use array name for multiple values
+      medicineNameInput.name = 'medicine_name[]';
+      medicineNameInput.required = true; // Add required attribute
 
+      // Create input element for duration
       const durationInput = document.createElement('input');
       durationInput.type = 'number';
-      durationInput.name = 'duration[]'; // Use array name for multiple values
+      durationInput.name = 'duration[]';
+      durationInput.required = true; // Add required attribute
 
+      // Create input element for quantity
       const quantityInput = document.createElement('input');
       quantityInput.type = 'number';
-      quantityInput.name = 'quantity[]'; // Use array name for multiple values
+      quantityInput.name = 'quantity[]';
+      quantityInput.required = true; // Add required attribute
 
+      // Create select element for feeding rules (replace with your options)
       const feedingRulesSelect = document.createElement('select');
-      feedingRulesSelect.name = 'feeding_rules[]'; // Use array name for multiple values
+      feedingRulesSelect.name = 'feeding_rules[]';
+      feedingRulesSelect.required = true; // Add required attribute
+      const feedingRuleOption1 = document.createElement('option');
+      feedingRuleOption1.value = 'once';
+      feedingRuleOption1.text = 'Once Daily';
+      feedingRulesSelect.appendChild(feedingRuleOption1);
+      // ... Add more feeding rule options as needed
 
-      // Add options to feeding rules select (example)
-      const feedingRuleOptions = ['Once Daily', 'Twice Daily', 'Thrice Daily'];
-      feedingRuleOptions.forEach(option => {
-        const feedingRuleOption = document.createElement('option');
-        feedingRuleOption.value = option;
-        feedingRuleOption.textContent = option;
-        feedingRulesSelect.appendChild(feedingRuleOption);
-      });
+      // Append elements to the new row
+      newRow.appendChild(createSelectCell(symptomsSelect));
+      newRow.appendChild(createTextCell(medicineNameInput));
+      newRow.appendChild(createTextCell(durationInput));
+      newRow.appendChild(createTextCell(quantityInput));
+      newRow.appendChild(createSelectCell(feedingRulesSelect));
 
-      // Append form elements to the new row
-      newRow.appendChild(createSelectCell(symptomsSelect)); // Assuming a function to create cell with select
-      newRow.appendChild(createTextCell(medicineNameInput));  // Assuming a function to create cell with input
-      newRow.appendChild(createNumberCell(durationInput));  // Assuming a function with input
-      newRow.appendChild(createNumberCell(quantityInput));  // Assuming a function with input
-      newRow.appendChild(createSelectCell(feedingRulesSelect)); // Assuming a function to create cell with select
-
-      tableBody.appendChild(newRow);
+      medicineTableBody.appendChild(newRow);
     }
 
-    // Helper functions to create cells with elements (replace with your actual implementation)
+    // Helper functions to create cells with elements
     function createSelectCell(selectElement) {
       const cell = document.createElement('td');
       cell.appendChild(selectElement);
@@ -93,11 +187,9 @@
       return cell;
     }
 
-    function createNumberCell(numberInput) {
-      const cell = document.createElement('td');
-      cell.appendChild(numberInput);
-      return cell;
-    }
+    // Initially show the add medicine container
+    const addMedicineContainer = document.querySelector('.add-medicine-container');
+    addMedicineContainer.style.display = 'block';
   </script>
 </body>
 </html>

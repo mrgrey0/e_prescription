@@ -155,10 +155,10 @@ def pres(name):
         #s = sqlmethods.getSymptoms()
         #m = sqlmethods.getMedicine()
         #print(s)
-        return render_template('prescribe.html',patientName=name,form=form)
+        return render_template('press2.html',patientName=name,form=form)
     elif request.method=='POST':
-        form = MedicationForm()
-        if form.validate_on_submit():  # Validate the form data
+        #form = MedicationForm()
+        #if form.validate_on_submit():  # Validate the form data
             # Access form data
             symptoms_list = request.form.getlist('symptoms[]')  # List of symptoms for each row
             medicine_names_list = request.form.getlist('medicine_name[]')  # List of medicine names for each row
@@ -176,10 +176,12 @@ def pres(name):
 
                 print(f"Patient: {pName}, Symptoms: {symptoms}, Medicine: {medicine_name}, Duration: {duration} days, Quantity: {quantity}, Feeding Rule: {feeding_rule}")
                 # Process data for each row (e.g., print, insert into database)
+            
+            sqlmethods.addMedication(pName, symptoms_list, medicine_names_list, durations_list, quantities_list, feeding_rules_list)
 
 
             # Call your medication adding function with the list of medication data
-            print(symptoms_list)
+            #print(symptoms_list)
             #print(symptoms,medicine_name,duration,quantity,feeding_rule)
             #sqlmethods.addMedication(pName, medicine_data)
 
@@ -201,7 +203,7 @@ def pres(name):
             response = make_response(filename, 200)
             response.headers['Content-Type'] = 'application/pdf'
             response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-        return "SUCESS"
+            return "SUCESS"
 
 if __name__ == '__main__':
     app.run(debug=True)
