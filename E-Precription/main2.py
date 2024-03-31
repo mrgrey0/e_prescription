@@ -5,6 +5,9 @@ import sqlmethods
 from fpdf import FPDF
 from flask_wtf import FlaskForm
 from wtforms import SelectField, IntegerField
+import io
+import tempfile
+import os
 
 class MedicationForm(FlaskForm):
     symptoms = SelectField('Symptoms',choices=['Fever','Hedache','WBC Drop','Body Pain','Rashes','Platelets Drop','High Fever','Body Pain','Hedache','Abdomen Pain','WBC Increase','Cough/Sneezing','Fever','Hedache','Body Pain','Watery/Red eyes','WBC Decrease','Lose Motion','Migration','Weakness','Dehidration','Fever','Abdomen Pain','Vomiting','Headache','Fast Heart Rate','Chest Pain','Cough/Cough with Blood','Night Sweats','Weight Loss',])  # Optional field
@@ -12,6 +15,7 @@ class MedicationForm(FlaskForm):
     duration = IntegerField('Duration (days)' )  # Optional field
     quantity = IntegerField('Quantity')  # Optional field
     feeding_rules = SelectField('Dosage', choices=['Once a day','Twice a day','Thrice a day'])
+
 
 def generate(patient_name, data):
   """
@@ -33,29 +37,41 @@ def generate(patient_name, data):
   pdf.cell(200, 10, txt="Address: Indranil Corner, Yeola Contact: 9421212322", ln=2, align='C')
 
   # Patient Name
-  pdf.cell(200, 10, txt=patient_name, ln=2, align='L')
+  pdf.cell(200, 10, txt="Name : "+patient_name, ln=2, align='L')
 
   # Prescription Details Header
   pdf.set_font("Arial", size=10)
-  pdf.cell(60, 10, txt="Symptoms", border=1, align='C')
-  pdf.cell(60, 10, txt="Medicine", border=1, align='C')
-  pdf.cell(40, 10, txt="Duration", border=1, align='C')
-  pdf.cell(40, 10, txt="Quantity", border=1, align='C')
+  pdf.cell(40, 10, txt="Symptoms", border=1, align='C')
+  pdf.cell(40, 10, txt="Medicine", border=1, align='C')
+  pdf.cell(20, 10, txt="Duration", border=1, align='C')
+  pdf.cell(20, 10, txt="Quantity", border=1, align='C')
   pdf.cell(40, 10, txt="Dosage", border=1, ln=1, align='C')
 
   # Populate prescription details
   for row in data:
       #symptoms, medName, duration, quantity, dosage = row
       pdf.set_font("Arial", size=10)
-      pdf.cell(30, 10, txt=row[1], border=1, align='L')
-      pdf.cell(30, 10, txt=row[2], border=1, align='L')
-      pdf.cell(30, 10, txt=str(row[3]), border=1, align='C')
-      pdf.cell(30, 10, txt=str(row[4]), border=1, align='C')
-      pdf.cell(30, 10, txt=row[5], border=1, ln=1, align='L')
+      pdf.cell(40, 10, txt=row[1], border=1, align='L')
+      pdf.cell(40, 10, txt=row[2], border=1, align='L')
+      pdf.cell(20, 10, txt=str(row[3]), border=1, align='C')
+      pdf.cell(20, 10, txt=str(row[4]), border=1, align='C')
+      pdf.cell(40, 10, txt=row[5], border=1, ln=1, align='L')
+
+  #with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+  #     pdf.output(temp_file.name, 'F')
+  #     pdf_url = temp_file.name
+  #return pdf_url
+
 
   filename = f"prescription_{patient_name}.pdf"  # Generate filename directly
+  filepath = os.path.join(os.getcwd(), filename)
   pdf.output(filename, 'F')  # Save PDF with generated filename
-  return filename  
+  #return filepath
+  #with tempfile.NamedTemporaryFile(prefix='prescription_', suffix='.pdf', delete=False) as temp_file:
+  #  pdf.output(temp_file.name, 'F')  # Save data to temporary file
+  #  filename = temp_file.name
+  return filename
+
 
 
 app = Flask(__name__)
@@ -152,9 +168,6 @@ def pres(name):
     form = MedicationForm()
     pName = name
     if request.method=='GET':
-        #s = sqlmethods.getSymptoms()
-        #m = sqlmethods.getMedicine()
-        #print(s)
         return render_template('press2.html',patientName=name,form=form)
     elif request.method=='POST':
         #form = MedicationForm()
@@ -182,10 +195,15 @@ def pres(name):
             prescription_data = sqlmethods.getMedicineData(pName)
 
             filename = generate(pName, prescription_data)
-            response = make_response(filename, 200)
-            response.headers['Content-Type'] = 'application/pdf'
-            response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-            return "SUCESS"
+            #response = make_response(filename, 200)
+            #response.headers['Content-Type'] = 'application/pdf'
+            #response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+            print(filename)
+            return redirect(url_for('view_prescription',data=filename))
+            
+@app.route('/view_prescription',methods=['GET','POST'])
+def view_prescription():
+    return render_template('render_pdf.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
