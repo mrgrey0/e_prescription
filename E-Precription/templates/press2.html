@@ -126,21 +126,37 @@ body {
     function addMedicineRow() {
       const newRow = document.createElement('tr');
 
+      const symptomList = ['Fever','Hedache','WBC Drop','Body Pain','Rashes','Platelets Drop','High Fever','Body Pain','Hedache','Abdomen Pain','WBC Increase','Cough/Sneezing','Fever','Hedache','Body Pain','Watery/Red eyes','WBC Decrease','Lose Motion','Migration','Weakness','Dehidration','Fever','Abdomen Pain','Vomiting','Headache','Fast Heart Rate','Chest Pain','Cough/Cough with Blood','Night Sweats','Weight Loss'];
+      const medicineList = ['Inj. Pan 40mg','Betadine Gargle','Cap. Fluvir 75mg','Cap. Vibact','Cap. Vibact ','Inj. Amikacin 500','Inj. Amikacin 500gm','Inj. Amkacin 500','Inj. Artisam 120gm','Inj. Artisunate 120gm','Inj. Finecef 1gm','Inj. Finecef T 1.125gm','Inj. Maxotan 4.5','Inj. Merosure 1gm','Inj. Pan 40mg','Inj. Pantop 40gm','Inj. Pipzo 4.5','Inj. Swich XP 1.125gm','Inj. Zostum 1.5gm','IU DNS RL','IU RL NS','Nab. Duolin Budecort','Syp. Ascoril Ls','Syp. Brozety','Syp. Grilli','Tab. Dolo 650','Tab. Lomotile(Sos)','Tab. Xycass 650(sos)','Tb. Akurit 400(6 months)','Tb. B. Complex','Tb. Caripap','Tb. Clabum 626','Tb. Doxy 100.','Tb. Drotin M.','Tb. Mucinac 600mg','Tb. Nicip Plus','Tb. Nicip Plus','Tb. Pan 40mg','Tb. Sumoflam','Tb. Xycaa 650','Tb. Xycaa 650(Sos)']
       // Create select element for symptoms (replace with your options)
       const symptomsSelect = document.createElement('select');
       symptomsSelect.name = 'symptoms[]';
-      symptomsSelect.required = true; // Add required attribute
-      const symptomOption1 = document.createElement('option');
-      symptomOption1.value = 'symptom1';
-      symptomOption1.text = 'Symptom 1';
-      symptomsSelect.appendChild(symptomOption1);
+      symptomsSelect.required = true;
+
+      // Loop through the symptomList and create options
+      for (const symptom of symptomList) {
+        const symptomOption = document.createElement('option');
+        symptomOption.value = symptom; // Use the symptom string as both value and text
+        symptomOption.text = symptom;
+        symptomsSelect.appendChild(symptomOption);
+      }
+      
       // ... Add more symptom options as needed
 
+      const medicineNameSelect = document.createElement('select');
+      medicineNameSelect.name = 'medicine_name[]';
+      medicineNameSelect.required = true; // Add required attribute
+
+      for (const med of medicineList) {
+        const medOption = document.createElement('option');
+        medOption.value = med;
+        medOption.text = med;
+        medicineNameSelect.appendChild(medOption);
+      }
       // Create input element for medicine name
-      const medicineNameInput = document.createElement('input');
-      medicineNameInput.type = 'text';
-      medicineNameInput.name = 'medicine_name[]';
-      medicineNameInput.required = true; // Add required attribute
+      //const medicineNameInput = document.createElement('input');
+     // medicineNameInput.name = 'medicine_name[]';
+      //medicineNameInput.required = true; // Add required attribute
 
       // Create input element for duration
       const durationInput = document.createElement('input');
@@ -159,14 +175,24 @@ body {
       feedingRulesSelect.name = 'feeding_rules[]';
       feedingRulesSelect.required = true; // Add required attribute
       const feedingRuleOption1 = document.createElement('option');
-      feedingRuleOption1.value = 'once';
+      feedingRuleOption1.value = 'Once Daily';
       feedingRuleOption1.text = 'Once Daily';
       feedingRulesSelect.appendChild(feedingRuleOption1);
+
+      const feedingRuleOption2 = document.createElement('option');
+      feedingRuleOption2.value = 'Twice Daily';
+      feedingRuleOption2.text = 'Twice Daily';
+      feedingRulesSelect.appendChild(feedingRuleOption2);
+
+      const feedingRuleOption3 = document.createElement('option');
+      feedingRuleOption3.value = 'Thrice Daily';
+      feedingRuleOption3.text = 'Thrice Daily';
+      feedingRulesSelect.appendChild(feedingRuleOption3);
       // ... Add more feeding rule options as needed
 
       // Append elements to the new row
       newRow.appendChild(createSelectCell(symptomsSelect));
-      newRow.appendChild(createTextCell(medicineNameInput));
+      newRow.appendChild(createTextCell(medicineNameSelect));
       newRow.appendChild(createTextCell(durationInput));
       newRow.appendChild(createTextCell(quantityInput));
       newRow.appendChild(createSelectCell(feedingRulesSelect));
