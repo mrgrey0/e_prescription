@@ -1,7 +1,7 @@
 import io
 
 from flask import Flask, flash, redirect, render_template, request, url_for, make_response
-# from pdf_code import generate
+
 from fpdf import FPDF
 
 import auth_methods
@@ -80,7 +80,7 @@ def register():
 
 
 @app.route('/login')
-def loginPg():
+def login():
     return render_template('login.html')
 
 
@@ -143,7 +143,7 @@ def regusr():
 
         res = auth_methods.signUp(email, password, username, phNumber, isDoc)
         if res == 'success':
-            return redirect(url_for('homepage'))
+            return redirect(url_for('login'))
 
         elif res == 'unsuccess':
             return "SOMETHING WENT WRONG"
@@ -163,9 +163,9 @@ def checklogin():
             elif doc == "NO":
                 return redirect(url_for('homerecep'))
         elif res == 'unsuccess':
-            return "<P>Something went wrong</P>"
+            return "<P>Wrong username or password</P>"
         elif res == 0:
-            return "MMMMM"
+            return "User does not exist"
     else:
         return "NONE"
 

@@ -7,7 +7,7 @@ firebaseConfig = {
   'storageBucket': "e-prescription-ff041.appspot.com",
   'messagingSenderId': "437020753136",
   'appId': "1:437020753136:web:c2c432dd239a9debfe1635",
-  'databaseURL':''
+  'databaseURL': ''
 }
 
 firebase=pyrebase.initialize_app(firebaseConfig)
