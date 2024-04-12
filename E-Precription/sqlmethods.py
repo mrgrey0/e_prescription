@@ -111,3 +111,16 @@ def findUser(mail):
     cursorObject.execute(select_stmt)
 # to be called when user logs in. to show information on the user's homepage
 # to be continued after the whole work is completed
+
+def isDoc(email):
+    query = "SELECT isDoc FROM USERS WHERE email = %s"
+    cursorObject.execute(query, (email,))
+
+    # Fetch the result (should be a single row)
+    result = cursorObject.fetchone()
+
+    # Check if result exists and isDoc is True
+    if result is not None and result[0]:
+        return "YES"
+    else:
+        return "NO"
